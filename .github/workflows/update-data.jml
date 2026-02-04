@@ -1,0 +1,15 @@
+name: Clear Cache on Data Update
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clear-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear Cloudflare Cache (if using)
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/zones/YOUR_ZONE/purge_cache" \
+            -H "Authorization: Bearer YOUR_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}'
